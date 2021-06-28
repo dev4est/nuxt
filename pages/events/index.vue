@@ -9,6 +9,7 @@
 	</section>
 </template>
 
+
 <script>
 export default {
 	asyncData() {
