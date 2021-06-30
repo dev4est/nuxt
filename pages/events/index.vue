@@ -2,8 +2,14 @@
 	<section>
 		<h1>{{pageTitle}}</h1>
 		<ul>
-				<li v-for="event of events" :key="event"> 
-					<a href="#" @click.prevent="goTo(event)">Event {{event}}</a>
+				<li v-for="event of events" :key="event.id"> 
+					<a href="#" @click.prevent="goTo(event)">
+						<span>{{event.title}}</span>
+						<span>Data: {{event.date_string}}</span>
+						<span>Location: {{event.location}}</span>
+						<span>Organization: {{event.organization}}</span>
+						<span>Title fight: {{event.title_fight}}</span>
+					</a>
 				</li>
 		</ul>
 	</section>
@@ -12,13 +18,15 @@
 
 <script>
 export default {
-	asyncData() {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve({
-					events: [1, 2, 3, 4, 5, 6]
-					})
-			}, 3000)
+	asyncData({$axios, error}) {
+		return $axios.$get('https://my-json-server.typicode.com/dev4est/mma-demo/events/')
+			.then(events => {
+				return {
+					events
+				}
+		})
+		.catch(err => {
+			error(err)
 		})
 	},
 	data() {
@@ -28,8 +36,17 @@ export default {
 	},
 	methods: {
 		goTo(event) {
-			this.$router.push('/event/' + event)
+			this.$router.push('/event/' + event.id)
 		}
 	}
 }
 </script>
+
+<style scoped>
+	li {
+		margin-bottom: 20px;
+	}
+	span {
+		display: block;
+	}
+</style>
