@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'nuxt-app-test',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'en' 
     },
     meta: [
       { charset: 'utf-8' },
