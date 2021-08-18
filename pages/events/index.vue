@@ -18,6 +18,7 @@
 
 <script>
 export default {
+	
 	asyncData({$axios, error}) {
 		return $axios.$get('https://my-json-server.typicode.com/dev4est/mma-demo/events/')
 			.then(events => {
